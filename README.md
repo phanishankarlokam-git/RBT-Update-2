@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Coverage tool: generated test graphs vs. the answer set (Browser dataset)
 
 This folder computes every number in Research Update 2. One command reproduces all of it.
@@ -57,3 +58,6 @@ Put `runN.dot` and `runN-TCs.txt` in `data/runs/<source>/<requirement>/` (for ex
 `data/runs/official/B20/run1.dot`) and run `python run_all.py` again. Nothing else changes.
 If a run only exists as a picture, type its graph into DOT first and render it with
 `dot -Tpng runN.dot -o check.png` to compare with the picture.
+=======
+# RBT-Update-2
+>>>>>>> a44631b226e586f640f268fb04a3279de3c04e62
