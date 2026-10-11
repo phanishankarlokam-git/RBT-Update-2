@@ -1,0 +1,51 @@
+# Answer set B19, encoded from Browser.pptx (diagram slide 16, notes slide(s) 17).
+# The graph itself is in B19.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B19.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B19
+diagram_slide: 16
+notes_slides:
+- 17
+requirement: >-
+  "Toolbar ---> Reload". When this button is pressed, current page must be downloaded again from its location. There
+  is no change to the "back" and "forward" stacks.
+test_cases:
+- id: T1
+  type: fork
+  notes: “Browser” → (click …) → do the TWO things
+  routes:
+  - [KHSU]
+  - [DCPA]
+sparkles:
+- id: S1
+  notes: split
+  check:
+    type: fanout
+    targets: [KHSU, DCPA]
+    min: 2
+- id: S2
+  notes: make sure that “Keeping History Stack Unchanged” is explicitly modeled
+  check:
+    type: concepts
+    nodes: [KHSU]
+data_notes:
+- >-
+  The notes say a second test case (page no longer exists) is missing from the requirement; only ONE test case is
+  defined, as instructed.
+notes_verbatim: |-
+  Sparkles: (1) split; (2) make sure that “Keeping History Stack Unchanged” is explicitly modeled.
+  Logical test cases: (1) “Browser” → (click …) → do the TWO things.
+  There should be at least another test case (see the note below); however, as of now, we’ll define ONE and only ONE logical test case for B19.
+  This requirement is less correct; in particular, it misses an important CONDITIONAL check, namely, “if the current page no longer exists, then “Reload” might be disabled or some error message (e.g., 404 not found) might be displayed after “Reload” is pressed.”

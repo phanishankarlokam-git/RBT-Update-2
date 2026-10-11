@@ -1,0 +1,42 @@
+// Test graph for Requirement B16, "Toolbar --> Back Button".
+// Nodes are the states relevant to Back button behavior: whether a
+// previous page exists in the stack, and, for the "no previous page"
+// case, the two behaviors the requirement allows: disabled but visible,
+// or enabled with a click that produces no action. Both allowed
+// variants appear as parallel branches so the graph covers the full
+// allowed behavior space, not just one implementation choice.
+// Coverage target used below: every edge (transition) traversed at
+// least once, which also visits every node at least once.
+
+digraph B16_BackButton {
+    rankdir=LR;
+    labelloc="t";
+    fontsize=14;
+    label="B16: Toolbar Back Button, Test Graph";
+
+    node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, fillcolor="#F2F2F2"];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Start [shape=oval, fillcolor="#DDDDDD", label="Start"];
+    D [label="No Previous Page (Back Disabled but Visible)"];
+    N [label="No Previous Page (Back Enabled, No Action)"];
+    O [label="One Previous Page (Back Enabled)", fillcolor="#E3F0FA"];
+    M [label="Two or More Previous Pages (Back Enabled)", fillcolor="#E3F0FA"];
+
+    Start -> D [label="launch, variant: disable when empty"];
+    Start -> N [label="launch, variant: no action when empty"];
+
+    D -> D [label="Back activation attempted, disabled: no navigation"];
+    N -> N [label="click Back, no previous page: no action"];
+
+    D -> O [label="navigate to new page, push current page onto stack"];
+    N -> O [label="navigate to new page, push current page onto stack"];
+
+    O -> M [label="navigate to new page, push current page onto stack"];
+    O -> D [label="click Back, returns to first page"];
+    O -> N [label="click Back, returns to first page"];
+
+    M -> M [label="navigate to new page, push current page onto stack"];
+    M -> M [label="click Back, two or more pages still remain"];
+    M -> O [label="click Back, exactly one page remains"];
+}

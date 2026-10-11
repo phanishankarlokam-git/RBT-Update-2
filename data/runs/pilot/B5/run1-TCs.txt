@@ -1,0 +1,5 @@
+1. Start → Click File Menu → File Menu Displayed → Open Present? → Close Present? → Exit Present? → Extra Options Present? → Extra Option Found → Pass
+2. Start → Click File Menu → File Menu Displayed → Open Present? → Close Present? → Exit Present? → Extra Options Present? → No Extra Options → Pass
+3. Start → Click File Menu → File Menu Displayed → Open Present? → Fail
+4. Start → Click File Menu → File Menu Displayed → Open Present? → Close Present? → Fail
+5. Start → Click File Menu → File Menu Displayed → Open Present? → Close Present? → Exit Present? → Fail

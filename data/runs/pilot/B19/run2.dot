@@ -1,0 +1,22 @@
+digraph B19_Reload {
+    rankdir=LR;
+    node [shape=box, fontname="Helvetica"];
+
+    Start [label="Page Displayed", shape=ellipse];
+    StacksDecision [label="Stacks State?", shape=diamond];
+    StacksEmpty [label="Back/Forward Empty"];
+    StacksNonEmpty [label="Back/Forward Non-Empty"];
+    PressReload [label="Press Reload"];
+    Redownload [label="Page Re-downloaded"];
+    Redisplay [label="Page Redisplayed"];
+    End [label="Stacks Unchanged", shape=ellipse];
+
+    Start -> StacksDecision;
+    StacksDecision -> StacksEmpty [label="empty"];
+    StacksDecision -> StacksNonEmpty [label="non-empty"];
+    StacksEmpty -> PressReload;
+    StacksNonEmpty -> PressReload;
+    PressReload -> Redownload;
+    Redownload -> Redisplay;
+    Redisplay -> End;
+}

@@ -1,0 +1,72 @@
+# Answer set B12, encoded from Browser.pptx (diagram slide 9, notes slide(s) 10).
+# The graph itself is in B12.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B12.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B12
+diagram_slide: 9
+notes_slides:
+- 10
+requirement: >-
+  "File --> Open" menu option. When this option is selected, your browser shall produce a simple pop-up dialog window
+  which shall consist of at least a text field, an "OK" and a "Cancel" button and some text prompting the user to
+  enter the URL of the document (s)he wants to open into the text field. When "OK" button is pressed, the dialog
+  window shall close, and the contents of the text field shall be remembered. These contents shall be copied into
+  the address field of the main browser window, and the browser software shall attempt to download the resource
+  specified in the contents. If "Cancel" button is pressed, the pop-up window shall close and no further action
+  with respect the "Open" command shall be taken.
+test_cases:
+- id: T1
+  type: fork
+  notes: “Browser” → … → (“OK”) → do THREE things
+  routes:
+  - [(OK), TFC]
+  - [(OK), CRD]
+  - [(OK), CPW]
+- id: T2
+  type: path
+  notes: “Browser” → …. → (“Cancel”) → do ONE thing
+  routes:
+  - [(Cancel), CPW]
+sparkles:
+- id: S1
+  notes: composition
+  check:
+    type: composition
+    parts: [TP, TF, OKB, CB, OTH]
+    min: 2
+- id: S2
+  notes: making sure that “Other(s)” is a part of “Pop-up Window
+  check:
+    type: optional_child
+    whole: PW
+- id: S3
+  notes: >-
+    a single “Closing Pop-up Window” state that is shared between “OK” button press and “Cancel” button press
+  check:
+    type: shared_target
+    node: CPW
+    after: [OK, Cancel]
+- id: S4
+  notes: “AND” split after “OK”
+  check:
+    type: fanout
+    targets: [TFC, CRD, CPW]
+    min: 2
+    after: OK
+data_notes: []
+notes_verbatim: |-
+  Notations include a COMPOSITION relation (i.e., the dark diamond).
+  Sparkles: (1) composition; (2) making sure that “Other(s)” is a part of “Pop-up Window, due to “at least” in the requirement; (3) a single “Closing Pop-up Window” state that is shared between “OK” button press and “Cancel” button press, rather than having TWO “Closing Pop-up Window” states; (4) “AND” split after “OK”.
+  Logical test cases: (1) “Browser” → … → (“OK”) → do THREE things; (2) “Browser” → …. → (“Cancel”) → do ONE thing.

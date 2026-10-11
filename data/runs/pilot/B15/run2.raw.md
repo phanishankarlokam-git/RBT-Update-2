@@ -1,0 +1,19 @@
+```dot
+digraph B15_HelpAbout {
+    rankdir=LR;
+    node [shape=box, style=rounded, fontname="Helvetica"];
+
+    "Browser Main Window" [shape=ellipse, peripheries=2];
+
+    "Browser Main Window" -> "Help Menu Open" [label="select Help"];
+    "Help Menu Open" -> "Browser Main Window" [label="dismiss menu (no selection)"];
+    "Help Menu Open" -> "About Pop-up Displayed" [label="select About"];
+    "About Pop-up Displayed" -> "About Content Verified" [label="read pop-up text"];
+    "About Content Verified" -> "Browser Main Window" [label="close pop-up"];
+}
+```
+
+```text
+1. Browser Main Window → Help Menu Open → About Pop-up Displayed → About Content Verified → Browser Main Window
+2. Browser Main Window → Help Menu Open → Browser Main Window
+```

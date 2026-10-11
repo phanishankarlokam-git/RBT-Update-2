@@ -1,0 +1,18 @@
+// Answer set B15 (Browser.pptx, slide 11).
+digraph B15 {
+  graph [requirement="B15"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1 [kind=start, shape=point, label=""];
+  BR  [label="Browser", kind=state];
+  PW  [label="Pop-up Window", kind=state];
+  NP  [label="Name of Programmer", kind=state];
+  MH  [label="Mention of Homework Assignment for CS 585", kind=state];
+  RDV [label="Release Date and Version Number", kind=state];
+  OTH [label="Other(s)", kind=state];
+  _s1 -> BR;
+  BR -> PW  [label="click “Help - -> About”"];
+  PW -> NP  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW -> MH  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW -> RDV [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW -> OTH [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+}

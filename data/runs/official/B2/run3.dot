@@ -1,0 +1,17 @@
+// Transcribed by hand from B2-OneShot-run3.PNG (the original DOT source was not provided).
+digraph B2_OneShot_run3 {
+  subgraph cluster_0 {
+    label="Fixed Components"; style=filled; color=lightgrey;
+    "Main Menu Bar"; "Navigational Toolbar"; "Text Field for URL Entry";
+  }
+  subgraph cluster_1 {
+    label="Dynamic Content Area"; style=filled; color=lightgrey;
+    "HTML Display Zone";
+  }
+  "Main Screen" -> "Main Menu Bar";
+  "Main Screen" -> "Navigational Toolbar";
+  "Main Screen" -> "Text Field for URL Entry";
+  "Main Screen" -> "HTML Display Zone";
+  "Main Screen" -> "cluster_0";
+  "cluster_0" -> "cluster_1" [label="Main Screen Loaded"];
+}

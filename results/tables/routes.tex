@@ -1,0 +1,34 @@
+B2 & T1 & fork & Launching Browser $\rightarrow$ Main Menu Bar \newline Launching Browser $\rightarrow$ Navigational Toolbar \newline Launching Browser $\rightarrow$ Text Field for URL Entry \newline Launching Browser $\rightarrow$ HTML Display Zone \\
+ & T2 & relational & \textit{none: it compares two launches} \\
+\midrule
+B5 & T1 & fork & “File” Menu $\rightarrow$ Open \newline “File” Menu $\rightarrow$ Close \newline “File” Menu $\rightarrow$ Exit \\
+ & T2 & fork & “File” Menu $\rightarrow$ Open \newline “File” Menu $\rightarrow$ Close \newline “File” Menu $\rightarrow$ Exit \newline “File” Menu $\rightarrow$ Other(s) (e.g., Save) \\
+\midrule
+B7 & T1 & fork & Toolbar $\rightarrow$ Back or \textless{}-{}- \newline Toolbar $\rightarrow$ Forward or -{}-\textgreater{} \newline Toolbar $\rightarrow$ Home \newline Toolbar $\rightarrow$ Reload \\
+ & T2 & fork & Toolbar $\rightarrow$ Back or \textless{}-{}- \newline Toolbar $\rightarrow$ Forward or -{}-\textgreater{} \newline Toolbar $\rightarrow$ Home \newline Toolbar $\rightarrow$ Reload \newline Toolbar $\rightarrow$ Other(s) \\
+\midrule
+B11 & T1 & path & No Current Page $\rightarrow$ Current Page \\
+ & T2 & path & Current Page $\rightarrow$ No Current Page \\
+\midrule
+B12 & T1 & fork & \textit{(OK)} $\rightarrow$ Text Field Content Copied to Address Field \newline \textit{(OK)} $\rightarrow$ Content Resource Downloaded to Browser \newline \textit{(OK)} $\rightarrow$ Closing Pop-up Window \\
+ & T2 & path & \textit{(Cancel)} $\rightarrow$ Closing Pop-up Window \\
+\midrule
+B15 & T1 & fork & Name of Programmer \newline Mention of Homework Assignment for CS 585 \newline Release Date and Version Number \\
+ & T2 & fork & Name of Programmer \newline Mention of Homework Assignment for CS 585 \newline Release Date and Version Number \newline Other(s) \\
+\midrule
+B16 & T1 & path & “Back” Button Disabled \\
+ & T2 & loop & \textit{(no or no previous page)} $\rightarrow$ \textit{(do nothing or no action)} \\
+ & T3 & fork & \textit{(yes or previous page exists)} $\rightarrow$ Update History Stack \newline \textit{(yes or previous page exists)} $\rightarrow$ Current Page = Previous Page \\
+\midrule
+B19 & T1 & fork & Keeping History Stack Unchanged \newline Downloading Current Page Again \\
+\midrule
+B20 & T1a & path & \textit{(enter address field)} $\rightarrow$ Document of the URL Downloaded and Displayed as “current” \\
+ & T2a & fork & \textit{(enter address field)} $\rightarrow$ Pushing “current” Document into the “Back” Stack \newline \textit{(enter address field)} $\rightarrow$ Displaying No “current” Document \newline \textit{(enter address field)} $\rightarrow$ Showing an Error Message in the HTML Display Zone \\
+ & T3a & path & \textit{(enter address field)} $\rightarrow$ Displaying the Last “current” Document \\
+ & T1b & path & \textit{(click File Open)} $\rightarrow$ Document of the URL Downloaded and Displayed as “current” \\
+ & T2b & fork & \textit{(click File Open)} $\rightarrow$ Pushing “current” Document into the “Back” Stack \newline \textit{(click File Open)} $\rightarrow$ Displaying No “current” Document \newline \textit{(click File Open)} $\rightarrow$ Showing an Error Message in the HTML Display Zone \\
+ & T3b & path & \textit{(click File Open)} $\rightarrow$ Displaying the Last “current” Document \\
+\midrule
+B23 & T1 & path & Content Click Disabled \\
+ & T2 & fork & Pushing “current” Document into the “Back” Stack \newline “Forward” Stack Cleared \\
+ & T3 & ordered & Pushing “current” Document into the “Back” Stack \newline Document of the “Forward” Stack’s Top Displayed as “current” $\rightarrow$ “Forward” Stack Popped \\

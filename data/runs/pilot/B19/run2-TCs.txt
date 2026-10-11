@@ -1,0 +1,2 @@
+1. Page Displayed → Stacks State? → Back/Forward Empty → Press Reload → Page Re-downloaded → Page Redisplayed → Stacks Unchanged
+2. Page Displayed → Stacks State? → Back/Forward Non-Empty → Press Reload → Page Re-downloaded → Page Redisplayed → Stacks Unchanged

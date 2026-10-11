@@ -1,0 +1,27 @@
+// Answer set B20 (Browser.pptx, slide 18). Two parallel transitions leave Browser.
+digraph B20 {
+  graph [requirement="B20"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  BR   [label="Browser", kind=state];
+  DEC  [label="To-be-opened resource is a valid URL?", kind=decision, shape=diamond];
+  DDC  [label="Document of the URL Downloaded and Displayed as “current”", kind=state];
+  FBAR [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=0.06, width=1.6];
+  PCB  [label="Pushing “current” Document into the “Back” Stack", kind=state];
+  DNC  [label="Displaying No “current” Document", kind=state];
+  SEM  [label="Showing an Error Message in the HTML Display Zone", kind=state];
+  MBAR [label="", kind=bar, bar=join, shape=box, style=filled, fillcolor=black, height=0.06, width=1.6];
+  DLC  [label="Displaying the Last “current” Document", kind=state];
+  _s1  -> BR;
+  BR   -> DEC  [label="enter “address field”"];
+  BR   -> DEC  [label="click “File - -> Open”"];
+  DEC  -> DDC  [label="yes"];
+  DEC  -> FBAR [label="no"];
+  FBAR -> PCB;
+  FBAR -> DNC;
+  FBAR -> SEM;
+  PCB  -> MBAR;
+  DNC  -> MBAR;
+  SEM  -> MBAR;
+  MBAR -> DLC  [label="click “Back” button"];
+}

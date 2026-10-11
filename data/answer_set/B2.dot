@@ -1,0 +1,23 @@
+// Answer set B2 (Browser.pptx, slide 1). Encoded by hand from the diagram.
+// kind=state|decision|bar|note|start ; composition edges carry kind=composition.
+digraph B2 {
+  graph [requirement="B2"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  LB   [label="Launching Browser", kind=state];
+  BAR  [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=0.06, width=1.6];
+  FIX  [label="Fixed", kind=state];
+  TBI  [label="To Be Implemented", kind=state];
+  MMB  [label="Main Menu Bar", kind=state];
+  NT   [label="Navigational Toolbar", kind=state];
+  TFUE [label="Text Field for URL Entry", kind=state];
+  HDZ  [label="HTML Display Zone", kind=state];
+  _s1 -> LB;
+  LB  -> BAR  [label="display"];
+  BAR -> FIX  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  BAR -> TBI  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  FIX -> MMB  [kind=composition, arrowhead=none];
+  FIX -> NT   [kind=composition, arrowhead=none];
+  FIX -> TFUE [kind=composition, arrowhead=none];
+  TBI -> HDZ  [kind=composition, arrowhead=none];
+}

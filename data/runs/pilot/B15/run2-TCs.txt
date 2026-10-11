@@ -1,0 +1,2 @@
+1. Browser Main Window → Help Menu Open → About Pop-up Displayed → About Content Verified → Browser Main Window
+2. Browser Main Window → Help Menu Open → Browser Main Window

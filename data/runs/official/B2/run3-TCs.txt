@@ -1,0 +1,7 @@
+The traversal paths for 100% coverage are:
+
+1. Main Screen → Main Menu Bar  
+2. Main Screen → Navigational Toolbar  
+3. Main Screen → Text Field for URL Entry  
+4. Main Screen → HTML Display Zone  
+5. Main Screen → cluster_0 → cluster_1 (via Main Screen Loaded)

@@ -1,0 +1,2 @@
+1. Start → Enter Pressed in Address Field → Retrieve and Analyze Text → Correct URL? → Download Document → Document Becomes Current → Start
+2. Start → File > Open Selected → Retrieve and Analyze Text → Correct URL? → Push Current Document to Back Stack → No Current Document → Display Error Message in HTML Display Zone → Back Button Pressed → Restore Last Document as Current → Start

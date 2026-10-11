@@ -1,0 +1,11 @@
+requirement,answer_nodes,answer_arrow_pairs,test_cases,routes,relational_test_cases,sparkles,manual_sparkles,enumerated_paths,baseline_L3_recall,baseline_L3_precision,baseline_test_cases_covered
+B2,7,6,2,4,1,3,0,4,0.8,1.0,1
+B5,5,4,2,4,0,2,0,4,1.0,1.0,2
+B7,6,5,2,5,0,4,0,5,1.0,1.0,2
+B11,2,2,2,2,0,4,0,2,1.0,0.5,2
+B12,11,10,2,4,0,4,0,9,1.0,0.4444,2
+B15,6,5,2,4,0,2,0,4,1.0,1.0,2
+B16,6,5,3,4,0,5,1,7,1.0,0.5714,3
+B19,3,2,1,2,0,2,0,2,1.0,1.0,1
+B20,7,8,6,10,0,5,0,8,1.0,1.0,6
+B23,9,8,3,4,0,5,0,5,0.75,0.6,2

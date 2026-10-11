@@ -1,0 +1,14 @@
+```dot
+digraph B11 {
+    rankdir=LR;
+    node [shape=box, fontname="Helvetica"];
+    edge [fontname="Helvetica", fontsize=10];
+
+    "No current page" -> "Current page" [label="a Simple HTML page becomes current"];
+    "Current page" -> "No current page" [label="the current page is cleared"];
+}
+```
+
+```text
+1. No current page → Current page → No current page
+```

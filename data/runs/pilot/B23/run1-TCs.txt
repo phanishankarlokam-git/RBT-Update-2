@@ -1,0 +1,4 @@
+1. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Pop Forward Stack → Attempt Download → New Document Becomes Current → End
+2. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Pop Forward Stack → Attempt Download → Current Document Unchanged → End
+3. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Clear Forward Stack → Attempt Download → New Document Becomes Current → End
+4. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Clear Forward Stack → Attempt Download → Current Document Unchanged → End

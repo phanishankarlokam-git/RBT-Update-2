@@ -1,0 +1,68 @@
+# Answer set B2, encoded from Browser.pptx (diagram slide 1, notes slide(s) 2).
+# The graph itself is in B2.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B2.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B2
+diagram_slide: 1
+notes_slides:
+- 2
+requirement: >-
+  Upon the launch of your browser software, the main screen of the browser shall appear. The main screen shall consist
+  of a main menu bar, a navigational toolbar, a text field for URL entry, and an area for display of results. We
+  will call the latter "html display zone". While all other parts of the browser main screen are "fixed", the html
+  display zone implementation is left to you.
+test_cases:
+- id: T1
+  type: fork
+  notes: Launching Browser → (display) → [showing all FOUR] components
+  routes:
+  - [LB, MMB]
+  - [LB, NT]
+  - [LB, TFUE]
+  - [LB, HDZ]
+- id: T2
+  type: relational
+  notes: >-
+    Launching Browser → (display) → [showing all FOUR] components AND making sure that the first three are “fixed”
+  routes: []
+  why_not_a_path: >-
+    It compares two separate launches: the first three components must be the SAME in both. One path, or a list
+    of separate paths, cannot express that comparison.
+sparkles:
+- id: S1
+  notes: split
+  check:
+    type: fanout
+    targets: [FIX, TBI, MMB, NT, TFUE, HDZ]
+    min: 2
+- id: S2
+  notes: use of “HTML Display Zone” as the name of a node
+  check:
+    type: uses_term
+    node: HDZ
+- id: S3
+  notes: compositions
+  check:
+    type: composition
+    parts: [MMB, NT, TFUE, HDZ]
+    min: 2
+data_notes:
+- >-
+  The composition diamond and the fork bar are drawn as notation. The bar is kept as an unlabelled node; composition
+  lines are edges with kind=composition.
+notes_verbatim: |-
+  Notations include a COMPOSITION relation (i.e., the dark diamond), and the undirected edges down the bottom (showing hierarchies and compositions).
+  Sparkles: (1) split; (2) use of “HTML Display Zone” as the name of a node [because the requirement itself defines this term]; (3) compositions.
+  Logical test cases: (1) Launching Browser → (display) → [showing all FOUR] components; (2) Launching Browser → (display) → [showing all FOUR] components AND making sure that the first three are “fixed” [that is, doing multiple launches, e.g., launching the browser TWICE – one with test case (1) and the other time with test case (2), and making sure the first three component (i.e., Main Menu Bar, Navigational Toolbar, and Text Field for URL Entry) are the SAME in both launches – meaning that they are NOT open to be implemented as “HTML Display Zone”.

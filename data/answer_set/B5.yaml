@@ -1,0 +1,56 @@
+# Answer set B5, encoded from Browser.pptx (diagram slide 3, notes slide(s) 4).
+# The graph itself is in B5.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B5.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B5
+diagram_slide: 3
+notes_slides:
+- 4
+requirement: >-
+  The "File" pull-down (drop-down) menu shall contain at least the following options: "Open", "Close" and "Exit".
+  Other options, such as "Save" may also be present.
+test_cases:
+- id: T1
+  type: fork
+  notes: “File” → (all THREE mandatory children)
+  routes:
+  - [FM, OPEN]
+  - [FM, CLOSE]
+  - [FM, EXIT]
+- id: T2
+  type: fork
+  notes: “File” → (all THREE mandatory children + an optional, Save, child)
+  routes:
+  - [FM, OPEN]
+  - [FM, CLOSE]
+  - [FM, EXIT]
+  - [FM, OTH]
+sparkles:
+- id: S1
+  notes: composition
+  check:
+    type: composition
+    parts: [OPEN, CLOSE, EXIT, OTH]
+    min: 2
+- id: S2
+  notes: modeling OPTIONALS as a child node
+  check:
+    type: optional_child
+    whole: FM
+data_notes: []
+notes_verbatim: |-
+  Notations include a COMPOSITION relation (i.e., the dark diamond).
+  Sparkles: (1) composition; (2) modeling OPTIONALS as a child node.
+  Logical test cases: (1) “File” → (all THREE mandatory children); (2) “File” → (all THREE mandatory children + an optional, Save, child).

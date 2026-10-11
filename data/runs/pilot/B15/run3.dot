@@ -1,0 +1,25 @@
+digraph B15_HelpAbout {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=9];
+
+    "Main Window" [shape=ellipse, peripheries=2];
+    "Help Menu Open" [shape=box];
+    "About Selected?" [shape=diamond];
+    "About Dialog Displayed" [shape=box];
+    "Required Content Verified" [shape=box];
+    "Optional Info Included?" [shape=diamond];
+    "Optional Info Displayed" [shape=box];
+    "Dialog Closed" [shape=box];
+
+    "Main Window" -> "Help Menu Open" [label="click Help"];
+    "Help Menu Open" -> "About Selected?" [label="menu shown"];
+    "About Selected?" -> "Main Window" [label="No"];
+    "About Selected?" -> "About Dialog Displayed" [label="Yes"];
+    "About Dialog Displayed" -> "Required Content Verified" [label="popup opens"];
+    "Required Content Verified" -> "Optional Info Included?" [label="name, CS 585 mention,\nrelease date, version # shown"];
+    "Optional Info Included?" -> "Optional Info Displayed" [label="Yes"];
+    "Optional Info Included?" -> "Dialog Closed" [label="No"];
+    "Optional Info Displayed" -> "Dialog Closed" [label="close popup"];
+    "Dialog Closed" -> "Main Window" [label="return"];
+}

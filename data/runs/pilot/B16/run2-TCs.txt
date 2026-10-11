@@ -1,0 +1,5 @@
+1. Start → No Previous Page (Back Disabled but Visible) → No Previous Page (Back Disabled but Visible)
+2. Start → No Previous Page (Back Enabled, No Action) → No Previous Page (Back Enabled, No Action)
+3. Start → No Previous Page (Back Disabled but Visible) → One Previous Page (Back Enabled) → No Previous Page (Back Disabled but Visible)
+4. Start → No Previous Page (Back Enabled, No Action) → One Previous Page (Back Enabled) → No Previous Page (Back Enabled, No Action)
+5. Start → No Previous Page (Back Disabled but Visible) → One Previous Page (Back Enabled) → Two or More Previous Pages (Back Enabled) → Two or More Previous Pages (Back Enabled) → Two or More Previous Pages (Back Enabled) → One Previous Page (Back Enabled) → No Previous Page (Back Disabled but Visible)

@@ -1,0 +1,59 @@
+# Answer set B15, encoded from Browser.pptx (diagram slide 11, notes slide(s) 12).
+# The graph itself is in B15.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B15.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B15
+diagram_slide: 11
+notes_slides:
+- 12
+requirement: >-
+  "Help --> About". When this option is selected, the software shall open a pop-up window containing basic description
+  of your browser. The text must contain the name of the programmer, a mention that this program is a homework assignment
+  for CS 585, the date of the browser's release and the version number (you are welcome to use any versioning scheme
+  you want), and any other information you deem useful.
+test_cases:
+- id: T1
+  type: fork
+  notes: “Browser” → …  → show the THREE mandatory items
+  routes:
+  - [NP]
+  - [MH]
+  - [RDV]
+- id: T2
+  type: fork
+  notes: >-
+    “Browser” → …. → show the THREE mandatory items AND one optional item (e.g., Programming Language = C)
+  routes:
+  - [NP]
+  - [MH]
+  - [RDV]
+  - [OTH]
+sparkles:
+- id: S1
+  notes: composition
+  check:
+    type: composition
+    parts: [NP, MH, RDV, OTH]
+    min: 2
+- id: S2
+  notes: making sure that “Other(s)” is a part of “Pop-up Window
+  check:
+    type: optional_child
+    whole: PW
+data_notes: []
+notes_verbatim: |-
+  Notations include a COMPOSITION relation (i.e., the dark diamond).
+  Sparkles: (1) composition; (2) making sure that “Other(s)” is a part of “Pop-up Window, due to “any other information you deem useful” in the requirement.
+  Logical test cases: (1) “Browser” → …  → show the THREE mandatory items; (2) “Browser” → …. → show the THREE mandatory items AND one optional item (e.g., Programming Language = C).

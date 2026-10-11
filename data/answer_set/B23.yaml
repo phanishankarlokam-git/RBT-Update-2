@@ -1,0 +1,95 @@
+# Answer set B23, encoded from Browser.pptx (diagram slide 21, notes slide(s) 22, 23).
+# The graph itself is in B23.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B23.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B23
+diagram_slide: 21
+notes_slides:
+- 22
+- 23
+requirement: >-
+  Part of the correct rendering of a Simple HTML document (see R21) is rendering and software support for the anchor
+  elements. The anchor elements shall be rendered in a manner that is in contrast with the non-anchor content.  When
+  a mouse button is clicked on top of the anchor element content, the browser shall push current page into the "Back"
+  stack, check if the url from the "href" attribute of the clicked anchor is the same as the top of the "forward"
+  stack and attempt to download the document. If successful the new document shall become the current document.
+  If the top url from the "forward" stack matched the anchor url, the "forward" stack shall be popped. If it does
+  not match, the "forward" stack shall be cleared.
+test_cases:
+- id: T1
+  type: path
+  notes: “Browser” → (render …) → Anchor context? → (no) → “Content Click Disabled”
+  routes:
+  - [CCD]
+- id: T2
+  type: fork
+  notes: >-
+    “Browser” → (render …) → Anchor context? → (yes) → “Content Click Enabled” → do “Pushing … “Back” Stack” and
+    the second conditional check → (no) → “ “Forward” Stack Cleared”
+  routes:
+  - [PCB]
+  - [FSC]
+- id: T3
+  type: ordered
+  notes: >-
+    “Browser” → (render …) → Anchor context? → (yes) → “Content Click Enabled” → do “Pushing … “Back” Stack” and
+    the second conditional check → (yes) → sequentially, do two things/actions, “Displaying top …” first, and then
+    “Pop top …”
+  routes:
+  - [PCB]
+  - [DFT, FSP]
+sparkles:
+- id: S1
+  notes: the “Anchor content?” conditional check
+  check:
+    type: concepts
+    nodes: [DEC1]
+- id: S2
+  notes: explicitly modeling “Content Click Disabled” along the “no” branch
+  check:
+    type: concepts
+    nodes: [CCD]
+- id: S3
+  notes: the split after “click anchor element” that leads to one action and one conditional check
+  check:
+    type: fanout
+    targets: [PCB, DEC2]
+    min: 2
+- id: S4
+  notes: >-
+    the conditional check of “Anchor’s “href” = top of the “Forward” Stack?” is modeled after/inside a split
+  check:
+    type: in_split
+    node: DEC2
+- id: S5
+  notes: one has to display the top first, and then pop the top
+  check:
+    type: sequence
+    first: DFT
+    then: FSP
+data_notes:
+- >-
+  Slide 21 also holds an unconnected "Downloading Current Page Again" ellipse and an unconnected "click “Toolbar
+  - -> Reload”" label. They are not linked to anything and look left over from B19, so they are not encoded. Please
+  confirm.
+- The notes write "Anchor context?"; the diagram says "Anchor content?". The diagram wording is used.
+notes_verbatim: |-
+  Sparkles: (1) the “Anchor content?” conditional check is something that Sneeds’s approach would NOT be able to detect; here, the requirement states: “... rendered in a manner that is in contrast with …”; (2) related to the above point/sparkle, explicitly modeling “Content Click Disabled” along the “no” branch is important; (3) the split after “click anchor element” that leads to one action and one conditional check; (4) the conditional check of “Anchor’s “href” = top of the “Forward” Stack?” is modeled after/inside a split; (5) the split after the “yes” of the second conditional check to do two things: not “AND”, but one AFTER the other, because if the top of the “Forward” stack is popped, then displaying the top would be another document; in another word, one has to display the top first, and then pop the top.
+  Logical test cases – please see next slide.
+  This requirement shows that using only keywords to define CONDITIONALS is limited.
+  “Browser” → (render …) → Anchor context? → (no) → “Content Click Disabled”
+  “Browser” → (render …) → Anchor context? → (yes) → “Content Click Enabled” → do “Pushing … “Back” Stack” and the second conditional check → (no) → “ “Forward” Stack Cleared”
+  “Browser” → (render …) → Anchor context? → (yes) → “Content Click Enabled” → do “Pushing … “Back” Stack” and the second conditional check → (yes) → sequentially, do two things/actions, “Displaying top …” first, and then “Pop top …”
+  Although the total number of logical test cases here is 3, one could enrich it by testing the “reverse” ordering to make sure that the negative outcome would NOT occur

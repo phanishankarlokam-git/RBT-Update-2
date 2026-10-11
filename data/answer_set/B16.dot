@@ -1,0 +1,28 @@
+// Answer set B16 (Browser.pptx, slide 13).
+// The dashed swimlane on the slide separates the "no" side (click does nothing)
+// from the "yes" side (click does two things). DOT has no swimlane; it is recorded
+// in the lane attribute for reference only and judged by hand for sparkle S3.
+digraph B16 {
+  graph [requirement="B16"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  BR   [label="Browser", kind=state];
+  DEC  [label="Previous page exists?", kind=decision, shape=diamond];
+  XBAR [label="", kind=bar, bar=xor, shape=box, style=filled, fillcolor=black, height=0.06, width=1.4];
+  NOTE1 [label="XOR", kind=note, shape=note, style=filled, fillcolor="#FFF2CC"];
+  BBC  [label="“Back” Button Clickable", kind=state];
+  BBD  [label="“Back” Button Disabled", kind=state];
+  CBAR [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=0.06, width=1.4];
+  UHS  [label="Update History Stack", kind=state];
+  CPP  [label="Current Page = Previous Page", kind=state];
+  _s1  -> BR;
+  BR   -> DEC  [label="check"];
+  DEC  -> XBAR [label="no"];
+  XBAR -> BBC;
+  XBAR -> BBD;
+  DEC  -> BBC  [label="yes"];
+  BBC  -> CBAR [label="click"];
+  CBAR -> UHS  [lane="yes"];
+  CBAR -> CPP  [lane="yes"];
+  CBAR -> BBC  [label="do nothing", lane="no"];
+}

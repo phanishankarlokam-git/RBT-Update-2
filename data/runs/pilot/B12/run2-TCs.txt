@@ -1,0 +1,2 @@
+1. Main Browser Window → Open Dialog Displayed → Dialog Closed (OK) → Text Field Contents Remembered → Address Field Updated → Download Attempted → Main Browser Window
+2. Main Browser Window → Open Dialog Displayed → Dialog Closed (Cancel) → No Further Action Taken → Main Browser Window

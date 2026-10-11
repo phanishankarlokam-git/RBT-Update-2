@@ -1,0 +1,32 @@
+// Answer set B23 (Browser.pptx, slide 21).
+// Not encoded: an unconnected "Downloading Current Page Again" ellipse and an
+// unconnected "click “Toolbar - -> Reload”" label on the slide (they appear to be
+// left over from B19). See data notes in B23.yaml.
+digraph B23 {
+  graph [requirement="B23"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  BR   [label="Browser", kind=state];
+  DEC1 [label="Anchor content?", kind=decision, shape=diamond];
+  CCD  [label="Content Click Disabled", kind=state];
+  CCE  [label="Content Click Enabled", kind=state];
+  BAR1 [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=0.06, width=1.6];
+  PCB  [label="Pushing “current” Document into the “Back” Stack", kind=state];
+  DEC2 [label="Anchor’s “href” = top of the “Forward” Stack?", kind=decision, shape=diamond];
+  FSC  [label="“Forward” Stack Cleared", kind=state];
+  SBAR [label="", kind=bar, bar=seq, shape=box, style=filled, fillcolor=black, height=0.9, width=0.06];
+  NOTE1 [label="sequential", kind=note, shape=note, style=filled, fillcolor="#FFF2CC"];
+  DFT  [label="Document of the “Forward” Stack’s Top Displayed as “current”", kind=state];
+  FSP  [label="“Forward” Stack Popped", kind=state];
+  _s1  -> BR;
+  BR   -> DEC1 [label="render a simple HTML document"];
+  DEC1 -> CCD  [label="no"];
+  DEC1 -> CCE  [label="yes"];
+  CCE  -> BAR1 [label="click anchor element"];
+  BAR1 -> PCB;
+  BAR1 -> DEC2;
+  DEC2 -> FSC  [label="no"];
+  DEC2 -> SBAR [label="yes"];
+  SBAR -> DFT  [order=1];
+  SBAR -> FSP  [order=2];
+}

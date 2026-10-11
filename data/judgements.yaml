@@ -1,0 +1,22 @@
+# Sparkles that cannot be checked mechanically (check type: manual), judged by a person.
+# run: "answer-set" is the answer set scored against itself; otherwise "<source>/<run>".
+- requirement: B16
+  sparkle: S3
+  run: answer-set
+  met: true
+  reason: "Slide 13 has the dashed swimlane separating the 'no' side from the 'yes' side."
+- requirement: B16
+  sparkle: S3
+  run: pilot/run1
+  met: false
+  reason: "No lanes or boxes; the Back click is drawn separately in each page state."
+- requirement: B16
+  sparkle: S3
+  run: pilot/run2
+  met: false
+  reason: "No lanes or boxes; the Back click is drawn once per state (repeated, not defined once)."
+- requirement: B16
+  sparkle: S3
+  run: pilot/run3
+  met: false
+  reason: "No lanes or boxes separating the two sides of the Back click."

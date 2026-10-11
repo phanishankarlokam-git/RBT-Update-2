@@ -1,0 +1,32 @@
+// Answer set B12 (Browser.pptx, slide 9).
+digraph B12 {
+  graph [requirement="B12"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  BR   [label="Browser", kind=state];
+  PW   [label="Pop-up Window", kind=state];
+  TP   [label="Text Prompt", kind=state];
+  TF   [label="Text Field", kind=state];
+  OKB  [label="“OK” Button", kind=state];
+  CB   [label="“Cancel” Button", kind=state];
+  OTH  [label="Other(s)", kind=state];
+  DEC  [label="“OK” or “Cancel”?", kind=decision, shape=diamond];
+  BAR  [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=1.2, width=0.06];
+  NOTE1 [label="AND", kind=note, shape=note, style=filled, fillcolor="#FFF2CC"];
+  TFC  [label="Text Field Content Copied to Address Field", kind=state];
+  CRD  [label="Content Resource Downloaded to Browser", kind=state];
+  CPW  [label="Closing Pop-up Window", kind=state];
+  _s1 -> BR;
+  BR  -> PW  [label="click “File - -> Open”"];
+  PW  -> TP  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW  -> TF  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW  -> OKB [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW  -> CB  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW  -> OTH [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  PW  -> DEC [label="press"];
+  DEC -> BAR [label="“OK”"];
+  BAR -> TFC;
+  BAR -> CRD;
+  BAR -> CPW;
+  DEC -> CPW [label="“Cancel”"];
+}

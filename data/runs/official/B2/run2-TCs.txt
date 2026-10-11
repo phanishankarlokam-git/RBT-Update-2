@@ -1,0 +1,14 @@
+Here is a summarized version of the 10 traversal paths to achieve 100% coverage of the diagram:
+
+1. **Browser → Main Screen → cluster_0 (via Main menu bar) → cluster_1**  
+2. **Browser → Main Screen → cluster_0 (via Navigational toolbar) → cluster_1**  
+3. **Browser → Main Screen → cluster_0 (via Text field for URL entry) → cluster_1**  
+4. **Browser → Main Screen → cluster_0 (via HTML Display Zone) → Content displayed here**  
+5. **Browser → Main Screen → cluster_0 (via all Fixed Browser Components) → cluster_1**  
+6. **Browser → Main Screen → cluster_0 (via HTML Display Zone) → Content displayed here**  
+7. **Browser → Main Screen → cluster_0 (Main menu bar) → cluster_1 → loop back**  
+8. **Browser → Main Screen → cluster_0 (Navigational toolbar) → cluster_1 → loop back**  
+9. **Browser → Main Screen → cluster_0 (Text field for URL entry) → cluster_1 → loop back**  
+10. **Browser → Main Screen → cluster_0 (HTML Display Zone) → Content displayed here → loop back**
+
+These paths ensure all nodes and edges are traversed, covering both fixed components and dynamic content flow.

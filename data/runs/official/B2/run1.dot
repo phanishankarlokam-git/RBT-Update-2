@@ -1,0 +1,27 @@
+// Transcribed by hand from B2-OneShot-run1.PNG (the original DOT source was not provided).
+// The subgraphs are named cluster_0 / cluster_1; the edges to "cluster_0" and "cluster_1"
+// then create two ordinary nodes with those names. This reproduces the rendered PNG.
+digraph B2_OneShot_run1 {
+  "launch browser" -> "Browser";
+  "Browser" -> "Main screen components appear";
+  "Main screen components appear" [shape=diamond];
+  subgraph cluster_0 {
+    style=filled; color=black;
+    node [style=filled, fillcolor=white];
+    "Main menu bar"; "Navigational toolbar"; "Text field for URL entry";
+  }
+  subgraph cluster_1 {
+    style=filled; color=black;
+    node [style=filled, fillcolor=white];
+    "HTML Display Zone";
+  }
+  "Main screen components appear" -> "Main menu bar" [label="Menu bar"];
+  "Main screen components appear" -> "Navigational toolbar" [label="Toolbar"];
+  "Main screen components appear" -> "Text field for URL entry" [label="URL entry"];
+  "Main screen components appear" -> "HTML Display Zone" [label="HTML Display"];
+  "Main menu bar" -> "cluster_0";
+  "Navigational toolbar" -> "cluster_0";
+  "Text field for URL entry" -> "cluster_0";
+  "cluster_0" -> "cluster_1" [label="Main screen loaded"];
+  "HTML Display Zone" -> "HTML content displayed here" [label="Content Displayed"];
+}

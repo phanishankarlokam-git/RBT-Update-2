@@ -1,0 +1,32 @@
+digraph B20_AddressBar {
+  rankdir=TB;
+  node [shape=box, style=rounded, fontname="Helvetica"];
+
+  Start [shape=oval, label="Start"];
+  Trigger1 [label="Enter Pressed in Address Field"];
+  Trigger2 [label="File > Open Selected"];
+  Retrieve [label="Retrieve and Analyze Text"];
+  Decision [shape=diamond, label="Correct URL?"];
+  Download [label="Download Document"];
+  BecomeCurrent [label="Document Becomes Current"];
+  PushBack [label="Push Current Document to Back Stack"];
+  NoCurrent [label="No Current Document"];
+  ShowError [label="Display Error Message in HTML Display Zone"];
+  BackPressed [label="Back Button Pressed"];
+  Restore [label="Restore Last Document as Current"];
+
+  Start -> Trigger1;
+  Start -> Trigger2;
+  Trigger1 -> Retrieve;
+  Trigger2 -> Retrieve;
+  Retrieve -> Decision;
+  Decision -> Download [label="Yes"];
+  Decision -> PushBack [label="No"];
+  Download -> BecomeCurrent;
+  BecomeCurrent -> Start;
+  PushBack -> NoCurrent;
+  NoCurrent -> ShowError;
+  ShowError -> BackPressed;
+  BackPressed -> Restore;
+  Restore -> Start;
+}

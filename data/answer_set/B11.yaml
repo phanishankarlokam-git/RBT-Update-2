@@ -1,0 +1,60 @@
+# Answer set B11, encoded from Browser.pptx (diagram slide 7, notes slide(s) 8).
+# The graph itself is in B11.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B11.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B11
+diagram_slide: 7
+notes_slides:
+- 8
+requirement: >-
+  At each moment of time the browser can display one Simple HTML page, which we call current, or it can display
+  no Simple HTML page, in which case we say the the browser has no current page.
+test_cases:
+- id: T1
+  type: path
+  notes: “No Current Page” → (display one simple HTML page) → “Current Page”
+  routes:
+  - [NCP, CP]
+- id: T2
+  type: path
+  notes: “Current Page” → (display no simple HTML page) → “No Current Page”
+  routes:
+  - [CP, NCP]
+sparkles:
+- id: S1
+  notes: do NOT model “Browser” at all
+  check:
+    type: no_word
+    word: browser
+- id: S2
+  notes: designate “No Current Page” and “Current Page” as the two, parallel initial/starting states
+  check:
+    type: entry_states
+    nodes: [NCP, CP]
+- id: S3
+  notes: use of “No Current Page” and “Current Page” as the labels of the states
+  check:
+    type: uses_term
+    node: [NCP, CP]
+- id: S4
+  notes: the XOR status is modeled as two separate states
+  check:
+    type: concepts
+    nodes: [NCP, CP]
+data_notes:
+- The slide spells "HMTL" in both transition labels; kept as on the slide. The notes spell it "HTML".
+notes_verbatim: |-
+  Sparkles: (1) do NOT model “Browser” at all; (2) designate “No Current Page” and “Current Page” as the two, parallel initial/starting states; (3) use of “No Current Page” and “Current Page” as the labels of the states, because these are concepts that are specially defined in the requirement (as opposed to terms related to “Simple HTML page”); (4) the XOR status is modeled as two separate states, that is, no browser can be in “No Current Page” and “Current Page” simultaneously.
+  Logical test cases: (1) “No Current Page” → (display one simple HTML page) → “Current Page”; (2) “Current Page” → (display no simple HTML page) → “No Current Page”.

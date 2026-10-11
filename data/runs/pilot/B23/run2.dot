@@ -1,0 +1,36 @@
+digraph AnchorClickBehavior {
+  rankdir=TB;
+  labelloc="t";
+  label="Requirement B23: Anchor Rendering and Click Navigation";
+  fontsize=14;
+  node [fontname="Helvetica", fontsize=11, shape=box];
+  edge [fontname="Helvetica", fontsize=10];
+
+  Start [shape=ellipse];
+  "Anchor Rendered In Contrast?" [shape=diamond];
+  "Rendering Non-Conformant" [shape=box, style=filled, fillcolor=lightpink];
+  "Page Displayed" [shape=ellipse];
+  "Click On Anchor" [shape=box];
+  "Push Current Page Into Back Stack" [shape=box];
+  "Href Matches Forward Stack Top?" [shape=diamond];
+  "Pop Forward Stack" [shape=box];
+  "Clear Forward Stack" [shape=box];
+  "Attempt To Download Document" [shape=box];
+  "Download Successful?" [shape=diamond];
+  "New Document Becomes Current Document" [shape=box];
+  "Current Document Unchanged" [shape=box];
+
+  Start -> "Anchor Rendered In Contrast?";
+  "Anchor Rendered In Contrast?" -> "Rendering Non-Conformant" [label="No"];
+  "Anchor Rendered In Contrast?" -> "Page Displayed" [label="Yes"];
+  "Page Displayed" -> "Click On Anchor";
+  "Click On Anchor" -> "Push Current Page Into Back Stack";
+  "Push Current Page Into Back Stack" -> "Href Matches Forward Stack Top?";
+  "Href Matches Forward Stack Top?" -> "Pop Forward Stack" [label="Match"];
+  "Href Matches Forward Stack Top?" -> "Clear Forward Stack" [label="No Match"];
+  "Pop Forward Stack" -> "Attempt To Download Document";
+  "Clear Forward Stack" -> "Attempt To Download Document";
+  "Attempt To Download Document" -> "Download Successful?";
+  "Download Successful?" -> "New Document Becomes Current Document" [label="Success"];
+  "Download Successful?" -> "Current Document Unchanged" [label="Failure"];
+}

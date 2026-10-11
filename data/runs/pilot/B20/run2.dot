@@ -1,0 +1,31 @@
+digraph B20_URL_Entry {
+    rankdir=TB;
+    node [fontname="Helvetica", shape=box];
+
+    start       [label="Start", shape=ellipse];
+    enter       [label="Enter Key Pressed in Address Field"];
+    fileopen    [label="File > Open Selected"];
+    retrieve    [label="Retrieve and Analyze Text"];
+    decision    [label="Correct URL?", shape=diamond];
+    download    [label="Download Document"];
+    pushback    [label="Push Current Document to Back Stack"];
+    nocurrent   [label="No Current Document"];
+    error       [label="Display Error Message"];
+    backpressed [label="Back Button Pressed"];
+    restore     [label="Restore Last Page as Current"];
+    doccurrent  [label="Document Is Current", shape=ellipse];
+
+    start -> enter;
+    start -> fileopen;
+    enter -> retrieve;
+    fileopen -> retrieve;
+    retrieve -> decision;
+    decision -> download    [label="Yes"];
+    decision -> pushback    [label="No"];
+    download -> doccurrent;
+    pushback -> nocurrent;
+    nocurrent -> error;
+    error -> backpressed;
+    backpressed -> restore;
+    restore -> doccurrent;
+}

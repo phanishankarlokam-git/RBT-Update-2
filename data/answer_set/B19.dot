@@ -1,0 +1,14 @@
+// Answer set B19 (Browser.pptx, slide 16).
+digraph B19 {
+  graph [requirement="B19"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1  [kind=start, shape=point, label=""];
+  BR   [label="Browser", kind=state];
+  BAR  [label="", kind=bar, bar=fork, shape=box, style=filled, fillcolor=black, height=0.06, width=1.6];
+  KHSU [label="Keeping History Stack Unchanged", kind=state];
+  DCPA [label="Downloading Current Page Again", kind=state];
+  _s1 -> BR;
+  BR  -> BAR  [label="click “Toolbar - -> Reload”"];
+  BAR -> KHSU;
+  BAR -> DCPA;
+}

@@ -1,0 +1,30 @@
+digraph B5_FileMenu {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=11];
+
+    Start      [shape=ellipse,     label="Start"];
+    ClickMenu  [shape=box,         label="Click File Menu"];
+    Displayed  [shape=box,         label="File Menu Displayed"];
+    OpenChk    [shape=diamond,     label="Open Present?"];
+    CloseChk   [shape=diamond,     label="Close Present?"];
+    ExitChk    [shape=diamond,     label="Exit Present?"];
+    ExtraChk   [shape=diamond,     label="Extra Options Present?"];
+    ExtraFound [shape=box,         label="Extra Option Found"];
+    NoExtra    [shape=box,         label="No Extra Options"];
+    Pass       [shape=doublecircle,label="Pass"];
+    Fail       [shape=doublecircle,label="Fail"];
+
+    Start     -> ClickMenu;
+    ClickMenu -> Displayed;
+    Displayed -> OpenChk;
+    OpenChk   -> CloseChk   [label="Yes"];
+    OpenChk   -> Fail       [label="No"];
+    CloseChk  -> ExitChk    [label="Yes"];
+    CloseChk  -> Fail       [label="No"];
+    ExitChk   -> ExtraChk   [label="Yes"];
+    ExitChk   -> Fail       [label="No"];
+    ExtraChk  -> ExtraFound [label="Yes"];
+    ExtraChk  -> NoExtra    [label="No"];
+    ExtraFound -> Pass;
+    NoExtra    -> Pass;
+}

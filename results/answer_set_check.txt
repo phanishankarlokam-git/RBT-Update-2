@@ -1,0 +1,3 @@
+Differences between the answer-set files and Browser.pptx
+B23 (slide 21): shape text 'downloading current page again' is not a node label in B23.dot
+B23 (slide 21): text box 'click toolbar reload' is not an arrow label in B23.dot

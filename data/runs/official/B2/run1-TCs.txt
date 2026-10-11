@@ -1,0 +1,8 @@
+Here are the traversal paths to achieve 100% coverage of the provided flowchart:
+
+1. launch browser → Browser → Main screen components appear → Menu bar → Main menu bar → cluster_0 → Main screen loaded → cluster_1  
+2. launch browser → Browser → Main screen components appear → Toolbar → Navigational toolbar → cluster_0 → Main screen loaded → cluster_1  
+3. launch browser → Browser → Main screen components appear → URL entry → Text field for URL entry → cluster_0 → Main screen loaded → cluster_1  
+4. launch browser → Browser → Main screen components appear → HTML Display → HTML Display Zone → Content Displayed → HTML content displayed here  
+
+These four paths cover all nodes and edges in the diagram, ensuring full coverage.

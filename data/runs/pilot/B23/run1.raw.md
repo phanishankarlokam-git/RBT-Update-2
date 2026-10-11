@@ -1,0 +1,37 @@
+```dot
+digraph B23_AnchorNavigation {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=11];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Start [label="Anchor Rendered In Contrast", shape=ellipse];
+    Click [label="Anchor Clicked", shape=box];
+    Push [label="Push Current Page To Back Stack", shape=box];
+    Check [label="Href Matches Forward Stack Top?", shape=diamond];
+    Pop [label="Pop Forward Stack", shape=box];
+    Clear [label="Clear Forward Stack", shape=box];
+    Download [label="Attempt Download", shape=diamond];
+    SetCurrent [label="New Document Becomes Current", shape=box];
+    Retain [label="Current Document Unchanged", shape=box];
+    End [label="End", shape=doublecircle];
+
+    Start -> Click [label="click on anchor"];
+    Click -> Push;
+    Push -> Check;
+    Check -> Pop [label="Yes"];
+    Check -> Clear [label="No"];
+    Pop -> Download;
+    Clear -> Download;
+    Download -> SetCurrent [label="Success"];
+    Download -> Retain [label="Failure"];
+    SetCurrent -> End;
+    Retain -> End;
+}
+```
+
+```text
+1. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Pop Forward Stack → Attempt Download → New Document Becomes Current → End
+2. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Pop Forward Stack → Attempt Download → Current Document Unchanged → End
+3. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Clear Forward Stack → Attempt Download → New Document Becomes Current → End
+4. Anchor Rendered In Contrast → Anchor Clicked → Push Current Page To Back Stack → Href Matches Forward Stack Top? → Clear Forward Stack → Attempt Download → Current Document Unchanged → End
+```

@@ -1,0 +1,355 @@
+# Human-reviewed matching decisions. Used ONLY in lenient mode; strict mode never reads this file.
+#
+# Each entry says: in these runs, the generated label below stands for these answer-set
+# node ids and/or event words. An empty list means "stands for nothing" and overrides a
+# wrong automatic match. Every entry has the reason a person accepted it.
+#
+# How entries were chosen: we listed every answer-set node the automatic rule could not find,
+# and every automatic match that looked wrong, and decided each one by reading both labels
+# and the run's graph. We only accepted a match when the generated label clearly names the
+# same thing in other words. Anything doubtful was left unmatched.
+
+# ------------------------------------------------------------------ B2 (official runs)
+- requirement: B2
+  runs: ["official/*"]
+  label: "Dynamic Content Area"
+  means: [TBI]
+  reason: "Box holding the HTML display zone, the one part whose implementation the requirement leaves open."
+
+# ------------------------------------------------------------------ B5
+- requirement: B5
+  runs: ["pilot/run1"]
+  label: "Extra Option Found"
+  means: [OTH]
+  reason: "An extra option on the menu = the answer set's Other(s) (e.g., Save)."
+- requirement: B5
+  runs: ["pilot/run1"]
+  label: "Extra Options Present?"
+  means: [OTH]
+  reason: "Check for extra options = Other(s)."
+- requirement: B5
+  runs: ["pilot/run2"]
+  label: 'Additional Option Selected (e.g. "Save")'
+  means: [OTH]
+  reason: "Additional option, e.g. Save = Other(s) (e.g., Save)."
+- requirement: B5
+  runs: ["pilot/run2"]
+  label: 'select optional item, e.g. "Save"'
+  means: [OTH]
+  reason: "Arrow selecting the optional item, e.g. Save = Other(s)."
+- requirement: B5
+  runs: ["pilot/run3"]
+  label: "Other Options Present?"
+  means: [OTH]
+  reason: "Check for other options = Other(s)."
+- requirement: B5
+  runs: ["pilot/run3"]
+  label: 'Additional Options (e.g. "Save") Shown'
+  means: [OTH]
+  reason: "Additional options, e.g. Save = Other(s) (e.g., Save)."
+
+# ------------------------------------------------------------------ B7
+- requirement: B7
+  runs: ["pilot/run2"]
+  label: "Additional Buttons Present?"
+  means: [OTH]
+  reason: "Additional buttons = Other(s)."
+- requirement: B7
+  runs: ["pilot/run2"]
+  label: "Additional Buttons Rendered"
+  means: [OTH]
+  reason: "Additional buttons = Other(s)."
+- requirement: B7
+  runs: ["pilot/run3"]
+  label: "Back, Forward, Home, Reload Present?"
+  means: [BACK, FWD, HOME, RELOAD]
+  reason: "One check node that names all four mandatory buttons."
+
+# ------------------------------------------------------------------ B11
+- requirement: B11
+  runs: ["pilot/run3"]
+  label: "the current page is cleared"
+  means: []
+  reason: "Arrow that LEAVES Current Page (it leads to No Current Page); it is not the Current Page state."
+
+# ------------------------------------------------------------------ B12
+- requirement: B12
+  runs: ["pilot/*"]
+  label: "Open Dialog Displayed"
+  means: [PW]
+  reason: "The Open dialog is the pop-up window."
+- requirement: B12
+  runs: ["pilot/*"]
+  label: "Dialog Displayed"
+  means: [PW]
+  reason: "The dialog is the pop-up window."
+- requirement: B12
+  runs: ["pilot/run1"]
+  label: "Dialog Closes; Contents Remembered and Copied to Address Field"
+  means: [CPW, TFC]
+  reason: "One node that says both things: the pop-up closes, and the text is copied to the address field."
+- requirement: B12
+  runs: ["pilot/run1"]
+  label: "Browser Attempts Download"
+  means: [CRD]
+  reason: "Download of the resource; the automatic rule wrongly read it as the Browser start node."
+- requirement: B12
+  runs: ["pilot/run1"]
+  label: "Dialog Closes; No Further Action Taken"
+  means: [CPW]
+  reason: "The pop-up closes (Cancel branch). The word 'No' refers to further action, not to the closing."
+- requirement: B12
+  runs: ["pilot/run2"]
+  label: "Dialog Closed (OK)"
+  means: [CPW]
+  reason: "Dialog closed = Closing Pop-up Window."
+- requirement: B12
+  runs: ["pilot/run2"]
+  label: "Dialog Closed (Cancel)"
+  means: [CPW]
+  reason: "Dialog closed = Closing Pop-up Window."
+- requirement: B12
+  runs: ["pilot/run2"]
+  label: "Text Field Contents Remembered"
+  means: [TFC]
+  reason: "Remembering the text and copying it to the address field are one node in the answer set."
+- requirement: B12
+  runs: ["pilot/run2"]
+  label: "remember text field contents"
+  means: [TFC]
+  reason: "As above (arrow label)."
+- requirement: B12
+  runs: ["pilot/run2", "pilot/run3"]
+  label: "Address Field Updated"
+  means: [TFC]
+  reason: "Address field updated with the text = Text Field Content Copied to Address Field."
+- requirement: B12
+  runs: ["pilot/run2", "pilot/run3"]
+  label: "Download Attempted"
+  means: [CRD]
+  reason: "Attempted download of the resource = Content Resource Downloaded to Browser."
+- requirement: B12
+  runs: ["pilot/run2"]
+  label: "attempt to download resource"
+  means: [CRD]
+  reason: "As above (arrow label)."
+- requirement: B12
+  runs: ["pilot/run3"]
+  label: "download attempted"
+  means: [CRD]
+  reason: "As above (arrow label)."
+- requirement: B12
+  runs: ["pilot/run3"]
+  label: "Main Window"
+  means: [BR]
+  reason: "The browser's main window = the Browser start node."
+
+# ------------------------------------------------------------------ B15
+- requirement: B15
+  runs: ["pilot/run1"]
+  label: "Release Date Shown"
+  means: [RDV]
+  reason: "The answer set keeps release date and version number in one node."
+- requirement: B15
+  runs: ["pilot/run1"]
+  label: "Version Number Shown"
+  means: [RDV]
+  reason: "The answer set keeps release date and version number in one node."
+- requirement: B15
+  runs: ["pilot/run1"]
+  label: "Additional Info Shown"
+  means: [OTH]
+  reason: "Additional information = Other(s)."
+- requirement: B15
+  runs: ["pilot/run1"]
+  label: "About Pop-up Window Closed"
+  means: []
+  reason: "Closing the pop-up is not the pop-up window itself (the automatic rule matched it on shared words)."
+- requirement: B15
+  runs: ["pilot/run2"]
+  label: "About Pop-up Displayed"
+  means: [PW]
+  reason: "The About pop-up = Pop-up Window."
+- requirement: B15
+  runs: ["pilot/run3"]
+  label: "Main Window"
+  means: [BR]
+  reason: "The browser's main window = the Browser start node."
+- requirement: B15
+  runs: ["pilot/run3"]
+  label: "About Dialog Displayed"
+  means: [PW]
+  reason: "The About dialog = Pop-up Window."
+- requirement: B15
+  runs: ["pilot/run3"]
+  label: "name, CS 585 mention, release date, version # shown"
+  means: [NP, MH, RDV]
+  reason: "Arrow label that names the three mandatory items."
+- requirement: B15
+  runs: ["pilot/run3"]
+  label: "Optional Info Displayed"
+  means: [OTH]
+  reason: "Optional information = Other(s)."
+
+# ------------------------------------------------------------------ B16
+- requirement: B16
+  runs: ["pilot/run1"]
+  label: "Page2 Current (1 Previous Page)"
+  means: ["(yes)"]
+  reason: "A state in which a previous page exists (the 'yes' side). Not 'Current Page = Previous Page', which the automatic rule matched on shared words."
+- requirement: B16
+  runs: ["pilot/run1"]
+  label: "Page3 Current (2 Previous Pages)"
+  means: ["(yes)"]
+  reason: "As above."
+- requirement: B16
+  runs: ["pilot/run1"]
+  label: "Click Back"
+  means: [CPP]
+  reason: "In this graph the Back click moves from page N to page N-1, i.e. current page = previous page."
+- requirement: B16
+  runs: ["pilot/run1"]
+  label: "Click Back (no previous page: disabled or no-op)"
+  means: [BBD, "(do nothing)"]
+  reason: "One arrow that holds both allowed behaviours when there is no previous page: disabled, or a click that does nothing."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "No Previous Page (Back Disabled but Visible)"
+  means: [BBD]
+  reason: "Back disabled but visible = Back Button Disabled."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "No Previous Page (Back Enabled, No Action)"
+  means: [BBC, "(do nothing)"]
+  reason: "Back is clickable but a click does nothing = Back Button Clickable + do nothing."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "One Previous Page (Back Enabled)"
+  means: [BBC, "(yes)"]
+  reason: "A previous page exists and Back is clickable."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "Two or More Previous Pages (Back Enabled)"
+  means: [BBC, "(yes)"]
+  reason: "A previous page exists and Back is clickable."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "click Back, returns to first page"
+  means: [CPP]
+  reason: "Back click that makes the previous page current."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "click Back, exactly one page remains"
+  means: [CPP]
+  reason: "Back click that makes the previous page current."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "click Back, two or more pages still remain"
+  means: [CPP]
+  reason: "Back click that makes the previous page current."
+- requirement: B16
+  runs: ["pilot/run2"]
+  label: "click Back, no previous page: no action"
+  means: ["(do nothing)"]
+  reason: "Back click with no previous page and no action."
+- requirement: B16
+  runs: ["pilot/run3"]
+  label: "Back Click Yields No Action"
+  means: ["(do nothing)"]
+  reason: "A Back click that does nothing."
+- requirement: B16
+  runs: ["pilot/run3"]
+  label: "click Back (button stays enabled)"
+  means: [BBC]
+  reason: "Back stays clickable = Back Button Clickable."
+- requirement: B16
+  runs: ["pilot/run3"]
+  label: "click Back (previous page still remains)"
+  means: [CPP]
+  reason: "Back click that makes the previous page current."
+- requirement: B16
+  runs: ["pilot/run3"]
+  label: "click Back (stack becomes empty)"
+  means: [CPP]
+  reason: "Back click that makes the previous page current."
+
+# ------------------------------------------------------------------ B19
+- requirement: B19
+  runs: ["pilot/run1"]
+  label: "Back Stack Unchanged"
+  means: [KHSU]
+  reason: "The answer set's history stack is the back and forward stacks together."
+- requirement: B19
+  runs: ["pilot/run1"]
+  label: "Forward Stack Unchanged"
+  means: [KHSU]
+  reason: "As above."
+- requirement: B19
+  runs: ["pilot/run1", "pilot/run3"]
+  label: "Current Page Displayed"
+  means: [BR]
+  reason: "The browser showing its current page = the Browser start node."
+- requirement: B19
+  runs: ["pilot/run2"]
+  label: "Page Displayed"
+  means: [BR]
+  reason: "The browser showing a page = the Browser start node."
+- requirement: B19
+  runs: ["pilot/run3"]
+  label: "Page Re-Downloaded From Same Location"
+  means: [DCPA]
+  reason: "Downloading the current page again from its location."
+- requirement: B19
+  runs: ["pilot/run3"]
+  label: "Back and Forward Stacks Unchanged"
+  means: [KHSU]
+  reason: "Back and forward stacks unchanged = history stack unchanged."
+
+# ------------------------------------------------------------------ B20
+- requirement: B20
+  runs: ["pilot/run1"]
+  label: "Text Forms Correct URL?"
+  means: [DEC]
+  reason: "The URL validity check."
+- requirement: B20
+  runs: ["pilot/run2", "pilot/run3"]
+  label: "Correct URL?"
+  means: [DEC]
+  reason: "The URL validity check."
+- requirement: B20
+  runs: ["pilot/*"]
+  label: "Download Document"
+  means: [DDC]
+  reason: "Downloading the document of a correct URL (it then becomes current)."
+- requirement: B20
+  runs: ["pilot/run1"]
+  label: "Restore Last Current Page"
+  means: [DLC]
+  reason: "Back returns the last current page = Displaying the Last current Document."
+- requirement: B20
+  runs: ["pilot/run2"]
+  label: "Restore Last Page as Current"
+  means: [DLC]
+  reason: "As above."
+- requirement: B20
+  runs: ["pilot/run2"]
+  label: "Document Is Current"
+  means: []
+  reason: "Shared end state of BOTH the download branch and the Back branch; the step before it says which one. The automatic rule matched it to the Back outcome only."
+
+# ------------------------------------------------------------------ B23
+- requirement: B23
+  runs: ["pilot/run1"]
+  label: "New Document Becomes Current"
+  means: [DFT]
+  reason: "The downloaded document becomes current; on the 'match' branch this is the forward stack's top."
+- requirement: B23
+  runs: ["pilot/run2"]
+  label: "New Document Becomes Current Document"
+  means: [DFT]
+  reason: "As above."
+- requirement: B23
+  runs: ["pilot/run3"]
+  label: "Current Document Updated"
+  means: [DFT]
+  reason: "As above."

@@ -1,0 +1,22 @@
+// Transcribed by hand from B2-OneShot-run2.PNG (the original DOT source was not provided).
+digraph B2_OneShot_run2 {
+  rankdir=LR;
+  subgraph cluster_0 {
+    label="Fixed Browser Components"; style=filled; color=lightgrey;
+    "Main menu bar"; "Navigational toolbar"; "Text field for URL entry";
+  }
+  subgraph cluster_1 {
+    label="Dynamic Content Area"; style=filled; color=lightgrey;
+    "HTML Display Zone";
+  }
+  "Browser" -> "Main Screen" [label="launch browser"];
+  "Main Screen" -> "Main menu bar";
+  "Main Screen" -> "Navigational toolbar";
+  "Main Screen" -> "Text field for URL entry";
+  "Main Screen" -> "HTML Display Zone";
+  "Main menu bar" -> "cluster_0";
+  "Navigational toolbar" -> "cluster_0";
+  "Text field for URL entry" -> "cluster_0";
+  "cluster_0" -> "cluster_1" [label="Main screen loaded"];
+  "HTML Display Zone" -> "Content displayed here" [label="Display content"];
+}

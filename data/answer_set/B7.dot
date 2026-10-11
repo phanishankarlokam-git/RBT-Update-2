@@ -1,0 +1,19 @@
+// Answer set B7 (Browser.pptx, slide 5). The yellow note is kept as a note node.
+digraph B7 {
+  graph [requirement="B7"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1    [kind=start, shape=point, label=""];
+  TB     [label="Toolbar", kind=state];
+  BACK   [label="Back or <--", kind=state];
+  FWD    [label="Forward or -->", kind=state];
+  HOME   [label="Home", kind=state];
+  RELOAD [label="Reload", kind=state];
+  OTH    [label="Other(s)", kind=state];
+  NOTE1  [label="Toolbar shall be located on the left side of the browser screen directly under the menu bar.", kind=note, shape=note, style=filled, fillcolor="#FFF2CC"];
+  _s1 -> TB;
+  TB -> BACK   [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  TB -> FWD    [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  TB -> HOME   [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  TB -> RELOAD [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  TB -> OTH    [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+}

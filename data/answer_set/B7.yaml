@@ -1,0 +1,75 @@
+# Answer set B7, encoded from Browser.pptx (diagram slide 5, notes slide(s) 6).
+# The graph itself is in B7.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B7.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B7
+diagram_slide: 5
+notes_slides:
+- 6
+requirement: >-
+  The toolbar shall be located on the left side of the browser screen directly under the menu bar. It shall contain
+  buttons for at least the following actions: "Back", "Forward", "Home" and "Reload".  Buttons for other actions
+  may also be present. If possible, render simple arrow and home icons on the appropriate toolbar buttons. If not,
+  use appropriate text. (e.g, the "Back" button can contain text "Back" or a simple text rendering of an arrow:
+  "<--".)
+test_cases:
+- id: T1
+  type: fork
+  notes: “Toolbar” → (all FOUR mandatory children)
+  routes:
+  - [TB, BACK]
+  - [TB, FWD]
+  - [TB, HOME]
+  - [TB, RELOAD]
+- id: T2
+  type: fork
+  notes: “Toolbar” → (all FOUR mandatory children + an optional, [e.g., Extensions], child)
+  routes:
+  - [TB, BACK]
+  - [TB, FWD]
+  - [TB, HOME]
+  - [TB, RELOAD]
+  - [TB, OTH]
+sparkles:
+- id: S1
+  notes: composition
+  check:
+    type: composition
+    parts: [BACK, FWD, HOME, RELOAD, OTH]
+    min: 2
+- id: S2
+  notes: modeling OPTIONALS as a child node
+  check:
+    type: optional_child
+    whole: TB
+- id: S3
+  notes: modeling “<--” and “-->” as part of the “Back” and “Forward” respectively
+  check:
+    type: label_has
+    nodes:
+      BACK: [<--, <-, ←, arrow]
+      FWD: [-->, ->, →, arrow]
+- id: S4
+  notes: an annotation note about the LOCATION of the “Toolbar” (i.e., to the LEFT and DIRECTL UNDER)
+  check:
+    type: text_has
+    all_of:
+    - [left]
+    - [under, below, beneath]
+data_notes: []
+notes_verbatim: |-
+  Notations include a COMPOSITION relation (i.e., the dark diamond).
+  Sparkles: (1) composition; (2) modeling OPTIONALS as a child node; (3) modeling “<--” and “-->” as part of the “Back” and “Forward” respectively; (4) an annotation note about the LOCATION of the “Toolbar” (i.e., to the LEFT and DIRECTL UNDER).
+  Logical test cases: (1) “Toolbar” → (all FOUR mandatory children); (2) “Toolbar” → (all FOUR mandatory children + an optional, [e.g., Extensions], child).

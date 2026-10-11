@@ -1,0 +1,16 @@
+// Answer set B5 (Browser.pptx, slide 3).
+digraph B5 {
+  graph [requirement="B5"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1   [kind=start, shape=point, label=""];
+  FM    [label="“File” Menu", kind=state];
+  OPEN  [label="Open", kind=state];
+  CLOSE [label="Close", kind=state];
+  EXIT  [label="Exit", kind=state];
+  OTH   [label="Other(s) (e.g., Save)", kind=state];
+  _s1 -> FM;
+  FM -> OPEN  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  FM -> CLOSE [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  FM -> EXIT  [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+  FM -> OTH   [kind=composition, dir=both, arrowtail=diamond, arrowhead=none];
+}

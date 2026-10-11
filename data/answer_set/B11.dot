@@ -1,0 +1,13 @@
+// Answer set B11 (Browser.pptx, slide 7). Two initial states. "HMTL" is spelled as on the slide.
+digraph B11 {
+  graph [requirement="B11"];
+  node  [shape=ellipse, fontname="Helvetica"];
+  _s1 [kind=start, shape=point, label=""];
+  _s2 [kind=start, shape=point, label=""];
+  NCP [label="No Current Page", kind=state];
+  CP  [label="Current Page", kind=state];
+  _s1 -> NCP;
+  _s2 -> CP;
+  NCP -> CP  [label="display one simple HMTL page"];
+  CP  -> NCP [label="display no simple HMTL page"];
+}

@@ -1,0 +1,84 @@
+# Answer set B16, encoded from Browser.pptx (diagram slide 13, notes slide(s) 14, 15).
+# The graph itself is in B16.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B16.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B16
+diagram_slide: 13
+notes_slides:
+- 14
+- 15
+requirement: >-
+  "Toolbar --> Back Button". Your browser must maintain a two-way stack of all pages that were current during the
+  lifetime of the run of the browser. A click on the "Back" button shall result in changing the current page to
+  the previous current page from the stack. If there is no previous page, "Back" button shall either be disabled
+  (but visible), or clicking it shall yield in no action.
+test_cases:
+- id: T1
+  type: path
+  notes: “Browser” → (check) … → (no) → “Back” Button Disabled
+  routes:
+  - [BBD]
+- id: T2
+  type: loop
+  notes: >-
+    “Browser” → (check) … → (no) → “Back” Button Clickable → (click) → (do nothing) → “Back” Button Clickable
+  routes:
+  - [(no | no previous page), (do nothing | no action)]
+- id: T3
+  type: fork
+  notes: “Browser” → (check) … → (yes) → “Back” Button Clickable → (click) … → Do TWO things
+  routes:
+  - [(yes | previous page exists), UHS]
+  - [(yes | previous page exists), CPP]
+sparkles:
+- id: S1
+  notes: having the conditional check BEFORE any potential “Back” button click
+  check:
+    type: precedes
+    first: DEC
+    then: (click back)
+- id: S2
+  notes: a split of XOR (exclusive OR) after the “no” branch of the condition check
+  check:
+    type: fanout
+    targets: [BBC, BBD]
+    min: 2
+    after: 'no'
+- id: S3
+  notes: a swimlane so that the “Back” button click can be minimally defined
+  check:
+    type: manual
+- id: S4
+  notes: a split of AND on the “yes” branch after the button click
+  check:
+    type: fanout
+    targets: [UHS, CPP]
+    min: 2
+    after: click back
+- id: S5
+  notes: make sure that “Update History Stack” is explicitly modeled
+  check:
+    type: concepts
+    nodes: [UHS]
+data_notes: []
+notes_verbatim: |-
+  Notations include a swimlane (that is, dotted line), showing SEPARATE actions of the “no” side of “Back” button click, and the “yes” side of the “Back” button click.
+  Sparkles: (1) having the conditional check BEFORE any potential “Back” button click, because that button might be disabled; (2) a split of XOR (exclusive OR) after the “no” branch of the condition check; (3) a swimlane so that the “Back” button click can be minimally defined (as opposed to repeatedly defined); (4) a split of AND on the “yes” branch after the button click; and (5) make sure that “Update History Stack” is explicitly modeled.
+  Logical test cases – please see next slide.
+  Logical test cases:
+  “Browser” → (check) … → (no) → “Back” Button Disabled
+  “Browser” → (check) … → (no) → “Back” Button Clickable → (click) → (do nothing) → “Back” Button Clickable
+  Note that #2 test case forms a LOOP, but we’ll treat #2 as ONE test case, rather than an infinite number of test cases
+  “Browser” → (check) … → (yes) → “Back” Button Clickable → (click) … → Do TWO things

@@ -1,0 +1,112 @@
+# Answer set B20, encoded from Browser.pptx (diagram slide 18, notes slide(s) 19, 20).
+# The graph itself is in B20.dot. This file holds what the notes say.
+#
+# routes: each logical test case is broken into routes. A route is a list of
+#   checkpoints that one generated test path must pass through, in this order.
+#     NODE    a node id from B20.dot (the path must visit a node that means the same thing)
+#     (text)  an event or guard word from the notes, e.g. (OK); some step of the path must carry it.
+#             "(a | b)" means either wording is accepted.
+#   A route keeps: the start node (unless it is the neutral "Browser" every test starts from),
+#   the event/guard words that tell this test case apart from the others, and the outcome
+#   nodes the test checks. In-between nodes are left out, because a generated path can reach
+#   the same outcome without drawing them.
+#   A test case with several routes (type: fork) is covered only when every route is covered.
+#   type: relational means the test case compares two runs and has no route at all.
+# sparkles: the expert modelling decisions listed in the notes, each with the
+#   mechanical check the tool runs (see coverage/checks.py). type: manual = judged by hand.
+id: B20
+diagram_slide: 18
+notes_slides:
+- 19
+- 20
+requirement: >-
+  When the "Enter" key is pressed while the browser focus (cursor) is in the address field, the software shall perform
+  the following actions. The text currently entered into the field shall be retrieved and analyzed. If the text
+  forms a correct URL, the document represented by this URL shall be downloaded and shall become current. If the
+  text does not form a correct URL, current document shall be pused into the "back" stack, the browser shall have
+  no current document, and an error message shall be displayed in the html display zone. Pushing "Back" button in
+  this state shall return back the last current page. The same URL check and the same behavior shall also be applicable
+  to opening a document via "File ---> Open" option.
+test_cases:
+- id: T1a
+  type: path
+  notes: “Browser” → (enter “address field”) → CONDITION → (yes) → “Document … downloaded and displayed …”
+  routes:
+  - [(enter address field), DDC]
+- id: T2a
+  type: fork
+  notes: “Browser” → (enter “address field”) → CONDITION → (no) → do the THREE things and END here
+  routes:
+  - [(enter address field), PCB]
+  - [(enter address field), DNC]
+  - [(enter address field), SEM]
+- id: T3a
+  type: path
+  notes: >-
+    “Browser” → (enter “address field”) → CONDITION → (no) → do the THREE things → (merge) → click “Back” button
+    → “Displaying the Last …”
+  routes:
+  - [(enter address field), DLC]
+- id: T1b
+  type: path
+  notes: 3 additional logical test cases that begin with “Browser” → (click “File - -> Open”) → …
+  routes:
+  - [(click File Open), DDC]
+- id: T2b
+  type: fork
+  notes: 3 additional logical test cases that begin with “Browser” → (click “File - -> Open”) → …
+  routes:
+  - [(click File Open), PCB]
+  - [(click File Open), DNC]
+  - [(click File Open), SEM]
+- id: T3b
+  type: path
+  notes: 3 additional logical test cases that begin with “Browser” → (click “File - -> Open”) → …
+  routes:
+  - [(click File Open), DLC]
+sparkles:
+- id: S1
+  notes: the TWO transitions coming out of “Browser”
+  check:
+    type: converge
+    node: DEC
+    after: [enter address field, click File Open]
+- id: S2
+  notes: >-
+    use of “To-be-opened resource” to ABSTRACT both “address field” entering and “File - -> Open” clicking
+  check:
+    type: label_has
+    nodes:
+      DEC: [resource, to-be-opened, to be opened]
+- id: S3
+  notes: the split to organize the three “AND” actions
+  check:
+    type: fanout
+    targets: [PCB, DNC, SEM]
+    min: 3
+- id: S4
+  notes: the merge to synchronize (bring back) the completion of the three actions
+  check:
+    type: fanin
+    sources: [PCB, DNC, SEM]
+    min: 2
+- id: S5
+  notes: make sure that the click “Back” button is on the “no” branch and is coming out of the merge
+  check:
+    type: fanin
+    sources: [PCB, DNC, SEM]
+    min: 2
+    then: DLC
+data_notes:
+- >-
+  The notes list the three "enter address field" test cases and say the same three exist for "click File --> Open";
+  T1b-T3b are those three.
+notes_verbatim: |-
+  Sparkles: (1) the TWO transitions coming out of “Browser”, as opposed to modeling “File - -> Open” as a separate and possibly redundant flow; (2) use of “To-be-opened resource” to ABSTRACT both “address field” entering and “File - -> Open” clicking; (3) the split to organize the three “AND” actions; (4) the merge to synchronize (bring back) the completion of the three actions; (5) make sure that the click “Back” button is on the “no” branch and is coming out of the merge.
+  Logical test cases – please see next slide.
+  This requirement is complex (probably the most complex in the Browser dataset), e.g., it covers TWO behaviors of entering “address field” and clicking “File - -> Open”. As a result, ABSTRACTION is needed to avoid the model (test graph) from being too large/complex/redundant.
+  Note that the following is using enter “address field” to define logical test cases; in parallel, the same number of logical test cases can be defined by following the click “File - -> Open” transition.
+  “Browser” → (enter “address field”) → CONDITION → (yes) → “Document … downloaded and displayed …”
+  “Browser” → (enter “address field”) → CONDITION → (no) → do the THREE things and END here
+  “Browser” → (enter “address field”) → CONDITION → (no) → do the THREE things → (merge) → click “Back” button → “Displaying the Last …”
+  Again, there will be 3 additional logical test cases that begin with “Browser” → (click “File - -> Open”) → … Thus, the total number of logical test cases for B20 is: 6.
